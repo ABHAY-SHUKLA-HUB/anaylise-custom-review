@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Review Analyzer | PulseReview AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Syne:wght@500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div class="background-layer"></div>
+    <header class="site-header container">
+      <a href="index.html" class="brand">PulseReview AI</a>
+      <nav>
+        <a href="index.html" class="btn btn-small btn-ghost">Home</a>
+      </nav>
+    </header>
+
+    <main class="container analyzer-layout fade-in">
+      <section class="panel input-panel">
+        <h1>Analyze Customer Review</h1>
+        <p class="panel-subtext">Paste any customer feedback to get sentiment and key phrase insights.</p>
+
+        <form id="analyzeForm">
+          <textarea
+            id="reviewInput"
+            placeholder="Example: The app looks amazing and checkout is very smooth, but delivery was late this time."
+            required
+          ></textarea>
+          <button type="submit" class="btn btn-primary full-width">Analyze with Azure AI</button>
+        </form>
+
+        <p id="apiSource" class="source-badge"></p>
+      </section>
+
+      <section class="panel output-panel">
+        <div id="loading" class="hidden">Analyzing review...</div>
+        <div id="error" class="error-message hidden"></div>
+
+        <div id="results" class="hidden">
+          <div class="result-grid">
+            <article class="result-card sentiment-display">
+              <h3>Overall Sentiment</h3>
+              <p id="sentimentLabel" class="sentiment-pill">-</p>
+            </article>
+
+            <article class="result-card chart-display">
+              <h3>Confidence Breakdown</h3>
+              <canvas id="sentimentChart" height="180"></canvas>
+            </article>
+          </div>
+
+          <article class="result-card keyphrase-display">
+            <h3>Key Phrases</h3>
+            <div id="keyPhraseList" class="chips"></div>
+          </article>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
