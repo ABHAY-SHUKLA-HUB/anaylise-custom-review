@@ -9,7 +9,7 @@ Premium 2-page web app for customer review understanding using Azure Text Analyt
 - Sentiment classification with confidence scores
 - Key phrase extraction from customer feedback
 - Interactive chart-based result visualization
-- Automatic mock mode when Azure credentials are not configured
+- Automatic mock mode when Azure credentials are not 
 
 ## Tech Stack
 
