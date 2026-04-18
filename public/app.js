@@ -6,6 +6,13 @@ const resultsEl = document.getElementById("results");
 const sentimentLabelEl = document.getElementById("sentimentLabel");
 const keyPhraseListEl = document.getElementById("keyPhraseList");
 const apiSourceEl = document.getElementById("apiSource");
+const credentialsForm = document.getElementById("credentialsForm");
+const endpointInput = document.getElementById("endpointInput");
+const keyInput = document.getElementById("keyInput");
+const credentialStatusEl = document.getElementById("credentialStatus");
+
+const ENDPOINT_STORAGE_KEY = "azure_language_endpoint";
+const API_KEY_STORAGE_KEY = "azure_language_key";
 
 let sentimentChart;
 
@@ -82,6 +89,46 @@ function renderKeyPhrases(phrases) {
   });
 }
 
+function getSavedCredentials() {
+  const endpoint = localStorage.getItem(ENDPOINT_STORAGE_KEY) || "";
+  const key = localStorage.getItem(API_KEY_STORAGE_KEY) || "";
+  return {
+    endpoint: endpoint.trim(),
+    key: key.trim(),
+  };
+}
+
+function updateCredentialStatus() {
+  if (!credentialStatusEl) return;
+
+  const { endpoint, key } = getSavedCredentials();
+  credentialStatusEl.textContent =
+    endpoint && key
+      ? "Saved credentials are ready and will be used for analysis requests."
+      : "No saved credentials yet. The app will use server .env or demo mode.";
+}
+
+credentialsForm?.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const endpoint = endpointInput.value.trim();
+  const key = keyInput.value.trim();
+
+  if (!endpoint || !key) {
+    credentialStatusEl.textContent = "Please enter both endpoint and key before saving.";
+    return;
+  }
+
+  localStorage.setItem(ENDPOINT_STORAGE_KEY, endpoint);
+  localStorage.setItem(API_KEY_STORAGE_KEY, key);
+  credentialStatusEl.textContent = "Credentials saved. New analysis requests will use Azure.";
+});
+
+const savedCredentials = getSavedCredentials();
+if (endpointInput && savedCredentials.endpoint) endpointInput.value = savedCredentials.endpoint;
+if (keyInput && savedCredentials.key) keyInput.value = savedCredentials.key;
+updateCredentialStatus();
+
 analyzeForm?.addEventListener("submit", async (event) => {
   event.preventDefault();
 
@@ -93,12 +140,19 @@ analyzeForm?.addEventListener("submit", async (event) => {
   resultsEl.classList.add("hidden");
 
   try {
+    const credentials = getSavedCredentials();
+    const requestBody = { text };
+
+    if (credentials.endpoint && credentials.key) {
+      requestBody.credentials = credentials;
+    }
+
     const response = await fetch("/api/analyze", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ text }),
+      body: JSON.stringify(requestBody),
     });
 
     const payload = await response.json();
@@ -113,7 +167,7 @@ analyzeForm?.addEventListener("submit", async (event) => {
     apiSourceEl.textContent =
       payload.source === "azure"
         ? "Connected to Azure Text Analytics"
-        : "Demo mode: add Azure credentials in .env for live cloud analysis";
+        : "Demo mode: add Azure credentials in settings above or in server .env for live cloud analysis";
 
     resultsEl.classList.remove("hidden");
   } catch (error) {

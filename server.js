@@ -5,6 +5,8 @@ const {
   AzureKeyCredential,
   TextAnalyticsClient,
 } = require("@azure/ai-text-analytics");
+const apiRouter = require("./src/routes/api");
+const { rateLimiter } = require("./src/middleware/rateLimiter");
 
 dotenv.config();
 
@@ -12,6 +14,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
+app.use(rateLimiter({ windowMs: 60_000, max: 200 }));
 app.use(express.static(path.join(__dirname, "public")));
 
 function buildMockAnalysis(text) {
@@ -57,9 +60,17 @@ function buildMockAnalysis(text) {
   };
 }
 
-function getAzureClient() {
-  const endpoint = process.env.AZURE_LANGUAGE_ENDPOINT;
-  const key = process.env.AZURE_LANGUAGE_KEY;
+function normalizeCredentials(credentials = {}) {
+  return {
+    endpoint: (credentials.endpoint || "").trim(),
+    key: (credentials.key || "").trim(),
+  };
+}
+
+function getAzureClient(requestCredentials) {
+  const normalizedRequestCredentials = normalizeCredentials(requestCredentials);
+  const endpoint = normalizedRequestCredentials.endpoint || process.env.AZURE_LANGUAGE_ENDPOINT;
+  const key = normalizedRequestCredentials.key || process.env.AZURE_LANGUAGE_KEY;
 
   if (!endpoint || !key) return null;
 
@@ -68,13 +79,13 @@ function getAzureClient() {
 
 app.post("/api/analyze", async (req, res) => {
   try {
-    const { text } = req.body;
+    const { text, credentials } = req.body;
 
     if (!text || typeof text !== "string" || !text.trim()) {
       return res.status(400).json({ error: "Please provide valid review text." });
     }
 
-    const client = getAzureClient();
+    const client = getAzureClient(credentials);
 
     if (!client) {
       return res.json(buildMockAnalysis(text));
@@ -109,8 +120,40 @@ app.post("/api/analyze", async (req, res) => {
   }
 });
 
+app.use("/api", apiRouter);
+
 app.get("/health", (_req, res) => {
-  res.json({ status: "ok", service: "review-intelligence" });
+  res.json({
+    status: "ok",
+    service: "pulse-review-ai",
+    timestamp: new Date().toISOString(),
+    modules: [
+      "dashboard",
+      "ingestion",
+      "insights",
+      "alerts",
+      "copilot",
+      "team-collaboration",
+      "integrations",
+      "reports",
+    ],
+  });
+});
+
+app.use((error, req, res, next) => {
+  if (!req.originalUrl.startsWith("/api")) {
+    return next(error);
+  }
+
+  if (error instanceof SyntaxError && error.status === 400 && "body" in error) {
+    return res.status(400).json({
+      error: "Invalid JSON payload.",
+    });
+  }
+
+  return res.status(error.status || 500).json({
+    error: error.message || "Internal server error",
+  });
 });
 
 app.get("*", (_req, res) => {

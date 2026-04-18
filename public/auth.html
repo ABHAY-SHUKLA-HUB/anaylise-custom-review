@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PulseReview AI | Authentication</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Syne:wght@500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="js/platform.js" defer></script>
+    <script src="js/auth.js" defer></script>
+  </head>
+  <body class="auth-page">
+    <div class="background-layer"></div>
+    <main class="auth-layout container fade-in">
+      <section class="panel auth-panel">
+        <a href="index.html" class="brand">PulseReview AI</a>
+        <h1>Login</h1>
+        <p class="panel-subtext">Access your PulseReview AI workspace.</p>
+
+        <form id="loginForm" class="stack-form">
+          <input type="email" name="email" placeholder="Email" required />
+          <input type="password" name="password" placeholder="Password" required />
+          <button class="btn btn-primary" type="submit">Login</button>
+        </form>
+      </section>
+    </main>
+    <div id="toastRoot" class="toast-root"></div>
+  </body>
+</html>

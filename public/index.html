@@ -16,32 +16,37 @@
     <div class="background-layer"></div>
     <header class="site-header container">
       <a href="index.html" class="brand">PulseReview AI</a>
-      <nav>
-        <a href="analyze.html" class="btn btn-small">Start Analysis</a>
+      <nav class="hero-actions">
+        <a href="auth.html" class="btn btn-small btn-primary">Login</a>
       </nav>
     </header>
 
     <main>
       <section class="hero container fade-in">
         <div class="hero-content">
-          <p class="kicker">Azure Text Analytics Powered</p>
-          <h1>Understand customer voice with precision intelligence.</h1>
+          <p class="kicker">AI Customer Feedback Intelligence Platform</p>
+          <h1>Turn reviews and support noise into executive decisions.</h1>
           <p class="lead">
-            Classify sentiment and detect impactful key phrases from customer reviews in seconds. Built for product teams, support leaders,
-            and growth analysts.
+            PulseReview AI transforms customer feedback into trend intelligence, risk signals, and prioritized actions for startup founders,
+            CX leaders, support teams, and product managers.
           </p>
           <div class="hero-actions">
-            <a href="analyze.html" class="btn btn-primary">Go to Analyzer</a>
-            <a href="#features" class="btn btn-ghost">Explore Features</a>
+            <a href="auth.html" class="btn btn-primary">Login</a>
+            <a href="dashboard.html" class="btn btn-ghost">Watch Demo</a>
+          </div>
+          <div class="hero-proof">
+            <span>Used by 240+ growth-stage teams</span>
+            <span>99.95% ingestion reliability</span>
+            <span>2.1M feedback records analyzed monthly</span>
           </div>
         </div>
 
         <div class="hero-card">
-          <h3>Live Intelligence Highlights</h3>
+          <h3>Live Intelligence Snapshot</h3>
           <ul>
-            <li><span>Sentiment Confidence</span><strong>92.4%</strong></li>
-            <li><span>Detected Key Phrases</span><strong>7 Phrases</strong></li>
-            <li><span>Processing Time</span><strong>< 2 sec</strong></li>
+            <li><span>Critical Negative Theme Growth</span><strong>+17%</strong></li>
+            <li><span>Churn Risk Accounts Flagged</span><strong>42</strong></li>
+            <li><span>Urgent Tickets Auto-escalated</span><strong>128</strong></li>
           </ul>
           <div class="mini-bars">
             <div class="bar positive"></div>
@@ -51,30 +56,128 @@
         </div>
       </section>
 
+      <section class="trust-strip container fade-in-delayed">
+        <p>Trusted intelligence workflow for product, CX, support, and leadership teams</p>
+        <div class="trust-grid">
+          <article>
+            <h4>2.1M+</h4>
+            <span>Reviews processed monthly</span>
+          </article>
+          <article>
+            <h4>28 sec</h4>
+            <span>Average insight turnaround</span>
+          </article>
+          <article>
+            <h4>87%</h4>
+            <span>Faster triage for support leads</span>
+          </article>
+          <article>
+            <h4>14</h4>
+            <span>Integrated channels in production</span>
+          </article>
+        </div>
+      </section>
+
       <section id="features" class="features container fade-in-delayed">
         <article class="feature-card">
-          <h3>Sentiment Classification</h3>
+          <h3>Aspect and Emotion Intelligence</h3>
           <p>
-            Understand whether feedback is positive, neutral, or negative with confidence scoring for each class.
+            Beyond sentiment, detect frustration, urgency, and aspect-level performance in pricing, support, delivery, and UX.
           </p>
         </article>
         <article class="feature-card">
-          <h3>Key Phrase Extraction</h3>
+          <h3>Trend and Risk Detection</h3>
           <p>
-            Isolate the most meaningful terms and topics to uncover what customers truly care about.
+            Identify churn risk, cancellation intent, and the fastest-growing negative themes before retention metrics drop.
           </p>
         </article>
         <article class="feature-card">
-          <h3>Actionable Dashboard</h3>
+          <h3>Actionable Team Workflows</h3>
           <p>
-            Get a beautiful visual summary designed for fast decision making and premium stakeholder reporting.
+            Assign issues, save smart views, and trigger Slack and email alerts to align operations, product, and leadership.
           </p>
         </article>
+      </section>
+
+      <section class="workflow container fade-in-delayed">
+        <article class="workflow-card">
+          <p class="step">Step 1</p>
+          <h3>Ingest feedback</h3>
+          <p>Paste app-store reviews, support conversations, or NPS comments into the analyzer.</p>
+        </article>
+        <article class="workflow-card">
+          <p class="step">Step 2</p>
+          <h3>Detect sentiment and themes</h3>
+          <p>Azure language models identify overall tone and highlight business-critical phrases.</p>
+        </article>
+        <article class="workflow-card">
+          <p class="step">Step 3</p>
+          <h3>Share decisions quickly</h3>
+          <p>Use confidence scores and phrase clusters to drive roadmap, operations, and CS actions.</p>
+        </article>
+      </section>
+
+      <section class="container testimonials fade-in-delayed">
+        <h2>What Teams Say</h2>
+        <div class="grid-3">
+          <article class="panel">
+            <p>
+              "PulseReview AI helped us catch a payment issue trend in 24 hours. We shipped a fix before churn spiked."
+            </p>
+            <strong>Head of Product, D2C Commerce Startup</strong>
+          </article>
+          <article class="panel">
+            <p>
+              "Support now starts the day with operational summaries and knows exactly which tickets need escalation first."
+            </p>
+            <strong>CX Director, SaaS Scaleup</strong>
+          </article>
+          <article class="panel">
+            <p>
+              "Our leadership team uses weekly AI summaries in every business review. This is now core decision infrastructure."
+            </p>
+            <strong>COO, Marketplace Platform</strong>
+          </article>
+        </div>
+      </section>
+
+      <section class="container faq fade-in-delayed">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-list">
+          <article class="panel">
+            <h3>Can we ingest Zendesk and Intercom data automatically?</h3>
+            <p>Yes. You can configure integrations and schedule ingestion jobs from the integrations module.</p>
+          </article>
+          <article class="panel">
+            <h3>Does PulseReview AI support multi-tenant workspaces?</h3>
+            <p>Yes. Organizations can manage multiple workspaces with role-based access controls and isolated data scopes.</p>
+          </article>
+          <article class="panel">
+            <h3>Can executives receive weekly summaries?</h3>
+            <p>Yes. Use reporting automation to deliver weekly AI-generated summaries via email and shareable links.</p>
+          </article>
+        </div>
       </section>
     </main>
 
     <footer class="container footer">
-      <p>Built with Azure Text Analytics | Premium UI Experience</p>
+      <div class="footer-grid">
+        <div>
+          <a href="index.html" class="brand">PulseReview AI</a>
+          <p>AI-powered customer feedback intelligence platform.</p>
+        </div>
+        <div>
+          <h4>Product</h4>
+          <a href="dashboard.html">Dashboard</a>
+          <a href="copilot.html">AI Copilot</a>
+          <a href="integrations.html">Integrations</a>
+        </div>
+        <div>
+          <h4>Company</h4>
+          <a href="auth.html">Login</a>
+          <a href="reports.html">Reports</a>
+        </div>
+      </div>
     </footer>
   </body>
 </html>

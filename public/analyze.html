@@ -25,8 +25,30 @@
 
     <main class="container analyzer-layout fade-in">
       <section class="panel input-panel">
+        <div class="analyzer-kicker-row">
+          <span class="mini-badge">Live Analyzer</span>
+          <span class="mini-badge">Private processing on your Azure resource</span>
+        </div>
         <h1>Analyze Customer Review</h1>
         <p class="panel-subtext">Paste any customer feedback to get sentiment and key phrase insights.</p>
+
+        <form id="credentialsForm" class="credentials-form">
+          <h3>Use your own Azure credentials</h3>
+          <input
+            id="endpointInput"
+            type="url"
+            placeholder="https://your-language-resource.cognitiveservices.azure.com/"
+            autocomplete="off"
+          />
+          <input
+            id="keyInput"
+            type="password"
+            placeholder="Azure Language Key"
+            autocomplete="off"
+          />
+          <button type="submit" class="btn btn-ghost full-width">Save Endpoint and Key</button>
+          <p id="credentialStatus" class="source-badge"></p>
+        </form>
 
         <form id="analyzeForm">
           <textarea
@@ -36,6 +58,17 @@
           ></textarea>
           <button type="submit" class="btn btn-primary full-width">Analyze with Azure AI</button>
         </form>
+
+        <div class="input-help-grid">
+          <article>
+            <h4>Best input format</h4>
+            <p>Use a full sentence with product context, issue detail, and desired outcome.</p>
+          </article>
+          <article>
+            <h4>Common use cases</h4>
+            <p>Ticket triage, release monitoring, churn risk flags, and quality trend reviews.</p>
+          </article>
+        </div>
 
         <p id="apiSource" class="source-badge"></p>
       </section>
